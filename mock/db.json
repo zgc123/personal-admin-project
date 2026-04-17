@@ -1,0 +1,16 @@
+{
+  "login": {
+    "token": "admin-token"
+  },
+  "user": {
+    "info": {
+      "id": 1,
+      "nickname": "超级管理员",
+      "roles": ["admin"]
+    },
+    "list": [
+      { "id": 1, "name": "张三", "role": "admin" },
+      { "id": 2, "name": "李四", "role": "user" }
+    ]
+  }
+}
