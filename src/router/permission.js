@@ -14,20 +14,24 @@ router.beforeEach(async (to, from, next) => {
   const routeStore = useRouteStore()
 
   const hasToken = userStore.token
+  console.log("🚀 ~ userStore:", userStore)
 
   if (hasToken) {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
       const hasRoles = userStore.roles && userStore.roles.length > 0
+      console.log("🚀 ~ hasRoles:", hasRoles)
       if (hasRoles) {
         next()
       } else {
         try {
           // 获取用户信息
-          await userStore.getInfo()
+         const res = await userStore.getInfo()
+          console.log("🚀 ~ res:", res)
           // 生成动态路由
           const accessRoutes = await routeStore.generateRoutes(userStore.roles)
+          console.log("🚀 ~ accessRoutes:", accessRoutes)
           // 添加路由
           accessRoutes.forEach(item => {
             router.addRoute(item)

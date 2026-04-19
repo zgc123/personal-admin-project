@@ -24,6 +24,29 @@ AxiosInstance.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
+
+    // 拦截登录请求,模拟登录
+    if (config.url === '/login' && config.method === 'post') {
+      const { username, password } = config.data
+      if (username === 'admin' && password === '123456') {
+        config.adapter = () => {
+          return Promise.resolve({
+            data: {
+              id: 1,
+              username: 'admin',
+              nickname: '超级管理员',
+              roles: ['admin'],
+              token: 'admin-token-123456'
+            },
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config
+          })
+        }
+      }
+    }
+
     return config;
   },
   (error) => {
@@ -47,7 +70,7 @@ AxiosInstance.interceptors.response.use(
           err.message = "请求错误";
           break;
         case 401:
-          localStorage.removeItem('token')
+          localStorage.setItem('token', '')
           err.message = "未授权，请登录";
           router.push('/login')
           break;

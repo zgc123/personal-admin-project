@@ -48,7 +48,7 @@
       <el-header class="header">
         <div class="right">
           <span>{{ userStore.userInfo?.nickname || '管理员' }}</span>
-          <el-button type="text" @click="logout">退出登录</el-button>
+          <el-button @click="logout">退出登录</el-button>
         </div>
       </el-header>
       <el-main class="content">

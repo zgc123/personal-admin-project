@@ -1,8 +1,8 @@
 /*
- * @Description: 用户状态
+ * @Description: 登录逻辑
  */
 import { defineStore } from 'pinia'
-import { login, getInfo } from '@/api/login'
+import { login } from '@/api/login'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -10,23 +10,14 @@ export const useUserStore = defineStore('user', {
     userInfo: {},
     roles: []
   }),
-
   actions: {
-    // 登录
-    async login(userInfo) {
-      const res = await login(userInfo)
+    async login(userData) {
+      const res = await login(userData)
       this.token = res.token
-      localStorage.setItem('token', res.token)
-    },
-
-    // 获取用户信息
-    async getInfo() {
-      const res = await getInfo()
       this.userInfo = res
       this.roles = res.roles
+      localStorage.setItem('token', this.token)
     },
-
-    // 退出登录
     logout() {
       this.token = ''
       this.userInfo = {}

@@ -1,10 +1,7 @@
-/*
- * @Description: 路由配置
- */
 import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/layout/index.vue'
+import { useUserStore } from '@/store/modules/user'
 
-// 公共路由
 export const constantRoutes = [
   {
     path: '/login',
@@ -34,6 +31,30 @@ export const constantRoutes = [
 const router = createRouter({
   history: createWebHistory(),
   routes: constantRoutes
+})
+
+// 路由守卫
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
+  const token = userStore.token
+
+  if (to.path === '/login') {
+    if (token) next('/')
+    else next()
+    return
+  }
+
+  if (!token) {
+    next(`/login?redirect=${to.path}`)
+    return
+  }
+
+  // 已登录，自动获取用户信息
+  if (!userStore.roles.length) {
+    await userStore.fetchUserInfo()
+  }
+
+  next()
 })
 
 export default router

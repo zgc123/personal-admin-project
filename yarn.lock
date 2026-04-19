@@ -827,9 +827,9 @@ has-tostringtag@^1.0.2:
     has-symbols "^1.0.3"
 
 hasown@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.npmmirror.com/hasown/-/hasown-2.0.2.tgz#003eaf91be7adc372e84ec59dc37252cedb80003"
-  integrity sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==
+  version "2.0.3"
+  resolved "https://registry.npmmirror.com/hasown/-/hasown-2.0.3.tgz#5e5c2b15b60370a4c7930c383dfb76bf17bc403c"
+  integrity sha512-ej4AhfhfL2Q2zpMmLo7U1Uv9+PyhIZpgQLGT1F9miIGmiCJIoCgSmczFdrc97mWT4kVY72KA+WnnhJ5pghSvSg==
   dependencies:
     function-bind "^1.1.2"
 
@@ -1232,9 +1232,9 @@ vite@^8.0.4:
     fsevents "~2.3.3"
 
 vue-component-type-helpers@^3.2.4:
-  version "3.2.6"
-  resolved "https://registry.npmmirror.com/vue-component-type-helpers/-/vue-component-type-helpers-3.2.6.tgz#49976f7ad879df75d884cf156b8a068a6f9a8f65"
-  integrity sha512-O02tnvIfOQVmnvoWwuSydwRoHjZVt8UEBR+2p4rT35p8GAy5VTlWP8o5qXfJR/GWCN0nVZoYWsVUvx2jwgdBmQ==
+  version "3.2.7"
+  resolved "https://registry.npmmirror.com/vue-component-type-helpers/-/vue-component-type-helpers-3.2.7.tgz#a85fd5ee4f5105883c267859c2d54a2d53e5da20"
+  integrity sha512-+gPp5YGmhfsj1IN+xUo7y0fb4clfnOiiUA39y07yW1VzCRjzVgwLbtmdWlghh7mXrPsEaYc7rrIir/HT6C8vYQ==
 
 vue-router@4:
   version "4.6.4"
