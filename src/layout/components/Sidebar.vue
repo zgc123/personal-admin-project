@@ -38,7 +38,7 @@
           <template v-for="child in route.children" :key="child.path">
             <el-menu-item
               v-if="!child.meta?.hidden"
-              :index="`/${route.path}/${child.path}`"
+              :index="`${route.path}/${child.path}`"
             >
               <span>{{ child.meta?.title || '未命名子菜单' }}</span>
             </el-menu-item>

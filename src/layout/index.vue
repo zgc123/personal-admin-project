@@ -1,9 +1,6 @@
 /*
  * @Description: 布局系统
  */
- /*
- * @Description: 布局系统
- */
 <template>
   <div class="layout">
     <Sidebar />

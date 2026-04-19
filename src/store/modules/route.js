@@ -4,7 +4,6 @@
 import { defineStore } from 'pinia'
 import { constantRoutes } from '@/router'
 
-
 export const asyncRoutes = [
   {
     path: '/system',
