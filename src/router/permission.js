@@ -14,32 +14,33 @@ router.beforeEach(async (to, from, next) => {
   const routeStore = useRouteStore()
 
   const hasToken = userStore.token
-  console.log("🚀 ~ userStore:", userStore)
 
   if (hasToken) {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      const hasRoles = userStore.roles && userStore.roles.length > 0
+      const hasRoles = userStore.roles !== null && userStore.roles !== undefined && userStore.roles.length > 0
       console.log("🚀 ~ hasRoles:", hasRoles)
+
       if (hasRoles) {
         next()
       } else {
         try {
           // 获取用户信息
-         const res = await userStore.getInfo()
-          console.log("🚀 ~ res:", res)
+          await userStore.getInfo()
+
           // 生成动态路由
           const accessRoutes = await routeStore.generateRoutes(userStore.roles)
-          console.log("🚀 ~ accessRoutes:", accessRoutes)
+
           // 添加路由
           accessRoutes.forEach(item => {
             router.addRoute(item)
           })
+          
           next({ ...to, replace: true })
         } catch (error) {
           await userStore.logout()
-          ElMessage.error('出错了')
+          ElMessage.error('登录已失效')
           next(`/login?redirect=${to.path}`)
         }
       }

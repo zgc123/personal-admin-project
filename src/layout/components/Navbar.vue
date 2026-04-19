@@ -5,7 +5,7 @@
   <div class="navbar">
     <div class="right-menu">
       <span>欢迎，{{ userStore.userInfo.nickname }}</span>
-      <el-button type="text" @click="handleLogout">退出登录</el-button>
+      <el-button @click="handleLogout">退出登录</el-button>
     </div>
   </div>
 </template>
@@ -13,15 +13,13 @@
 <script setup>
 import { useUserStore } from '@/store/modules/user'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
 
+const emit = defineEmits(['onLogout']);
 const userStore = useUserStore()
 const router = useRouter()
 
 const handleLogout = () => {
-  userStore.logout()
-  ElMessage.success('退出成功')
-  router.push('/login')
+  emit('onLogout')
 }
 </script>
 

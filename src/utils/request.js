@@ -25,7 +25,7 @@ AxiosInstance.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`
     }
 
-    // 拦截登录请求,模拟登录
+    // 拦截登录请求,模拟登录返回
     if (config.url === '/login' && config.method === 'post') {
       const { username, password } = config.data
       if (username === 'admin' && password === '123456') {
