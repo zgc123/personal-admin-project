@@ -13,9 +13,9 @@ export function login(data) {
 }
 
 // 获取用户信息
-export function getInfo() {
+export function getUserInfo() {
   return request({
-    url: '/user/info',
+    url: '/userInfo',
     method: 'get'
   })
 }

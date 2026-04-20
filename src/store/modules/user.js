@@ -2,7 +2,7 @@
  * @Description: 登录逻辑
  */
 import { defineStore } from 'pinia'
-import { login } from '@/api/login'
+import { login, getUserInfo } from '@/api/login'
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -11,27 +11,31 @@ export const useUserStore = defineStore('user', {
     roles: null
   }),
   actions: {
-    async login(userData) {
-      const res = await login(userData)
-      this.token = res.token
-      this.userInfo = res
-      // this.roles = res.roles
-      console.log("🚀 ~ this.roles:", this.roles)
-      localStorage.setItem('token', this.token)
-    },
-
-    async getInfo() {
-      this.userInfo = {
-        id: 1,
-        username: 'admin',
-        nickname: '超级管理员',
-        roles: ['admin'],
-        token: 'admin-token-123456'
+    // 登录
+    async login (userData) {
+      try {
+        const res = await login(userData)
+        this.token = res.token
+        this.userInfo = res;
+        localStorage.setItem('token', this.token)
+      } catch (err) {
+        console.log(err)
       }
-      this.roles = ['admin']
     },
-
-    logout() {
+    // 获取用户信息
+    async getInfo () {
+      try {
+        const res = await getUserInfo()
+        if (Object.keys(res).length !== 0) {
+          this.userInfo = res;
+          this.roles = res.roles
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    },
+    // 退出登录
+    logout () {
       this.token = ''
       this.userInfo = {}
       this.roles = []

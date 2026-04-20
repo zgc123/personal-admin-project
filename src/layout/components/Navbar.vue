@@ -30,7 +30,6 @@ const handleLogout = () => {
   padding: 0 20px;
   height: 50px;
   align-items: center;
-  border-bottom: 1px solid #eee;
 }
 .right-menu {
   display: flex;

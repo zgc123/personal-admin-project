@@ -45,7 +45,6 @@ const handleLogin = async () => {
     const redirect = route.query.redirect || '/home'
     console.log("准备跳转到：", redirect)
     router.push(redirect)
-    console.log("跳转执行完成")
   } catch (err) {
     ElMessage.error('登录失败：' + err.message)
     console.error(err)

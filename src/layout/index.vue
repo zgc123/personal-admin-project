@@ -20,11 +20,9 @@
 import Sidebar from './components/Sidebar.vue'
 import Navbar from './components/Navbar.vue'
 
-import { useRouteStore } from '@/store/modules/route'
 import { useUserStore } from '@/store/modules/user'
 import { useRouter } from 'vue-router'
 
-const routeStore = useRouteStore()
 const userStore = useUserStore()
 const router = useRouter()
 
