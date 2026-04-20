@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
       return res.json({
         id: user.id,
         username: user.username,
-        nickname: user.nickname,
+        name: user.name,
         roles: user.roles,
         token: 'admin-token-' + user.id
       })

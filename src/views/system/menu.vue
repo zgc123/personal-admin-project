@@ -4,14 +4,7 @@
 <template>
 	<div class="menu-container my-content">
 		<div class="header-box">
-			<el-button type="primary" @click="openAdd">新增菜单</el-button>
-			<el-button
-				type="danger"
-				@click="batchDelete"
-				:disabled="selectedIds.length === 0"
-			>
-				批量删除
-			</el-button>
+			<el-button type="primary" @click="openAdd">新增顶级菜单</el-button>
 			<el-button type="success" @click="getList">刷新</el-button>
 		</div>
 
@@ -22,19 +15,27 @@
 			row-key="id"
 			default-expand-all
 			class="my-table"
-			@selection-change="handleSelectionChange"
 		>
-			<el-table-column type="selection" width="55" />
 			<el-table-column prop="id" label="ID" width="80" />
 			<el-table-column prop="label" label="菜单名称" min-width="150" />
 			<el-table-column prop="path" label="路由路径" min-width="180" />
 			<el-table-column prop="icon" label="图标" width="100" />
 			<el-table-column prop="sort" label="排序" width="80" />
-			<el-table-column label="操作" width="220">
+			<el-table-column label="是否隐藏" width="100">
 				<template #default="scope">
-					<el-button type="primary" size="small" @click="openEdit(scope.row)"
-						>编辑</el-button
-					>
+					<el-tag :type="scope.row.hidden ? 'danger' : 'success'">
+						{{ scope.row.hidden ? '隐藏' : '显示' }}
+					</el-tag>
+				</template>
+			</el-table-column>
+			<el-table-column label="操作" width="280">
+				<template #default="scope">
+					<el-button type="primary" size="small" @click="openEdit(scope.row)">
+						编辑
+					</el-button>
+					<el-button v-if="scope.row.parentId === '0'" type="success" size="small" @click="openAdd(scope.row)">
+						新增子菜单
+					</el-button>
 					<el-button
 						type="danger"
 						size="small"
@@ -78,6 +79,9 @@
 						style="width: 100%"
 					/>
 				</el-form-item>
+				<el-form-item label="是否隐藏">
+					<el-switch v-model="form.hidden" active-text="隐藏" inactive-text="显示" />
+				</el-form-item>
 			</el-form>
 			<template #footer>
 				<el-button @click="dialogVisible = false">取消</el-button>
@@ -94,19 +98,17 @@ import { getMenuList, addMenu, updateMenu, deleteMenu } from '@/api/menu'
 
 // 数据
 const menuList = ref([])
-const selectedIds = ref([])
 
 // 表单
 const dialogVisible = ref(false)
 const form = ref({})
 const isEdit = ref(false)
 
-// 树形结构转换
+// 树形结构
 const menuTree = computed(() => {
   const map = {}
   menuList.value.forEach(m => (map[m.id] = { ...m, children: [] }))
 
-  // 排序
   const sortedList = [...menuList.value].sort((a, b) => a.sort - b.sort)
 
   const tree = []
@@ -115,14 +117,13 @@ const menuTree = computed(() => {
       tree.push(map[m.id])
     } else if (map[m.parentId]) {
       map[m.parentId].children.push(map[m.id])
-      // 子菜单排序
       map[m.parentId].children.sort((a, b) => a.sort - b.sort)
     }
   })
   return tree
 })
 
-// 上级菜单选项（排除自己）
+// 上级菜单选项
 const parentOptions = computed(() => {
   return menuList.value.filter(i => i.id !== form.value.id)
 })
@@ -140,41 +141,24 @@ const getList = async () => {
       ...item,
       id: String(item.id),
       parentId: String(item.parentId),
-      sort: Number(item.sort)
+      sort: Number(item.sort),
+      hidden: item.hidden ?? false
     }))
   } catch (e) {
     console.error(e)
   }
 }
 
-// 多选监听
-const handleSelectionChange = (val) => {
-  selectedIds.value = val.map(i => String(i.id))
-}
-
-// 核心：判断菜单是否可删除
-const canDelete = (row) => {
-  // 顶级菜单（首页、个人中心、系统管理）不可删
-  if (['1', '2', '3'].includes(row.id)) {
-    return false
-  }
-  // 系统管理下的所有子菜单（parentId === '3'）不可删
-  if (row.parentId === '3') {
-    return false
-  }
-  // 其他可删
-  return true
-}
-
-// 新增
-const openAdd = () => {
+// 新增菜单
+const openAdd = (parent) => {
   isEdit.value = false
   form.value = {
     label: '',
     path: '',
     icon: '',
-    parentId: '0',
-    sort: 1 // 直接用数字
+    parentId: parent ? parent.id :'0',
+    sort: 1,
+    hidden: false
   }
   dialogVisible.value = true
 }
@@ -182,15 +166,21 @@ const openAdd = () => {
 // 编辑
 const openEdit = (row) => {
   isEdit.value = true
-  form.value = { 
-    ...row,
-    sort: Number(row.sort) // 确保是数字
-  }
+  form.value = { ...row, sort: Number(row.sort) }
   dialogVisible.value = true
 }
 
-// 提交
+// 提交保存
 const submitForm = async () => {
+  // 校验
+  const isExist = menuList.value.some(
+    m => m.path === form.value.path && m.id !== (form.value.id || '')
+  )
+  if (isExist) {
+    ElMessage.error('路由路径已存在！')
+    return
+  }
+
   try {
     if (isEdit.value) {
       await updateMenu(form.value.id, form.value)
@@ -206,12 +196,18 @@ const submitForm = async () => {
   }
 }
 
-// 删除（单个）
+// 判断是否可删除
+const canDelete = (row) => {
+  if (['1', '2', '3'].includes(row.id)) return false
+  if (row.parentId === '3') return false
+  return true
+}
+
+// 删除
 const handleDelete = async (id) => {
   id = String(id)
   const menu = menuList.value.find(m => m.id === id)
   
-  // 双重校验
   if (!canDelete(menu)) {
     ElMessage.warning('系统核心菜单不可删除')
     return
@@ -226,30 +222,6 @@ const handleDelete = async (id) => {
     ElMessage.info('已取消')
   }
 }
-
-// 批量删除
-const batchDelete = async () => {
-  const protectIds = ['1', '2', '3']
-  const protectedChildrenIds = menuList.value
-    .filter(m => m.parentId === '3')
-    .map(m => m.id)
-  const allProtectedIds = [...protectIds, ...protectedChildrenIds]
-
-  // 检查是否包含受保护菜单
-  if (selectedIds.value.some(id => allProtectedIds.includes(id))) {
-    ElMessage.warning('包含系统核心菜单，不可删除')
-    return
-  }
-
-  try {
-    await ElMessageBox.confirm('确定删除选中项？')
-    for (const id of selectedIds.value) await deleteMenu(id)
-    ElMessage.success('批量删除成功')
-    selectedIds.value = []
-    getList()
-  } catch {}
-}
 </script>
-
 
 <style scoped></style>

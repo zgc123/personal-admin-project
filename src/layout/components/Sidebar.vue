@@ -123,7 +123,7 @@ const showMenus = computed(() => {
 	const menuIds = new Set(role.menuIds.map(String))
 
 	// 过滤出有权限的一级菜单
-	return treeMenus.value.filter((m) => menuIds.has(m.id))
+	return treeMenus.value.filter((m) => menuIds.has(m.id) && !m.hidden)
 })
 </script>
 

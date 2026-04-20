@@ -18,15 +18,21 @@
 		<el-table
 			:data="userList"
 			border
-      height="600"
-      class="my-table"
+			height="600"
+			class="my-table"
 			@selection-change="handleSelectionChange"
 		>
 			<el-table-column type="selection" width="55" />
 			<el-table-column prop="id" label="ID" />
 			<el-table-column prop="name" label="姓名" />
 			<el-table-column prop="username" label="账号" />
-			<el-table-column prop="role" label="角色" />
+			<el-table-column label="角色">
+				<template #default="scope">
+					<el-tag type="primary">
+						{{ scope.row.roles?.[0] || 'user' }}
+					</el-tag>
+				</template>
+			</el-table-column>
 			<el-table-column label="操作">
 				<template #default="scope">
 					<el-button type="primary" size="small" @click="openEdit(scope.row)">
@@ -60,14 +66,14 @@
 		<el-dialog v-model="dialogVisible" title="用户信息" width="500px">
 			<el-form :model="form" label-width="80px">
 				<el-form-item label="姓名">
-					<el-input
-						v-model="form.name"
-						:disabled="form.id === '1'"
-						placeholder="请输入姓名"
-					/>
+					<el-input v-model="form.name" placeholder="请输入姓名" />
 				</el-form-item>
 				<el-form-item label="账号">
-					<el-input v-model="form.username" placeholder="请输入登录账号" />
+					<el-input
+						v-model="form.username"
+						placeholder="请输入登录账号"
+						:disabled="form.id === '1'"
+					/>
 				</el-form-item>
 				<el-form-item label="密码">
 					<el-input
@@ -104,7 +110,7 @@ const userList = ref([])
 const dialogVisible = ref(false)
 const form = ref({})
 const isEdit = ref(false)
-const id = ref(null)
+const editId = ref(null)
 // 分页
 const page = ref(1)
 const limit = ref(15)
@@ -123,11 +129,12 @@ const getList = async () => {
 			_page: page.value,
 			_per_page: limit.value,
 		})
-    total.value = res.items;
-		userList.value = res.data.map(item => ({
-      ...item,
-      id: String(item.id),
-    }))
+		total.value = res.items
+		userList.value = res.data.map((item) => ({
+			...item,
+			id: String(item.id),
+			roles: item.roles || ['user'],
+		}))
 	} catch (err) {
 		console.error(err)
 	}
@@ -143,19 +150,35 @@ const openAdd = () => {
 // 编辑
 const openEdit = (row) => {
 	isEdit.value = true
-	id.value = row.id
-	form.value = { ...row }
+	editId.value = row.id
+	form.value = {
+		...row,
+		role: row.roles?.[0] || 'user',
+	}
 	dialogVisible.value = true
 }
 
 // 提交
 const submitForm = async () => {
+	// 数据转换
+	const data = {
+		name: form.value.name,
+		username: form.value.username,
+		password: form.value.password,
+		roles: [form.value.role],
+	}
+
+	// 编辑时带上 id
+	if (isEdit.value) {
+		data.id = editId.value
+	}
+
 	try {
 		if (isEdit.value) {
-			await updateUser(id.value, form.value)
+			await updateUser(editId.value, data)
 			ElMessage.success('修改成功')
 		} else {
-			await addUser(form.value)
+			await addUser(data)
 			ElMessage.success('新增成功')
 		}
 		dialogVisible.value = false
@@ -183,32 +206,30 @@ const handleDelete = async (userId) => {
 
 // 多选监听
 const handleSelectionChange = (val) => {
-  selectedIds.value = val.map(item => item.id)
+	selectedIds.value = val.map((item) => item.id)
 }
 
 // 批量删除
 const handleBatchDelete = async () => {
-  // 禁止删除管理员
-  if (selectedIds.value.includes('1')) {
-    ElMessage.warning('包含管理员账号，不可删除！')
-    return
-  }
-  try {
-    await ElMessageBox.confirm('确定删除选中的数据？', '提示', {
-      type: 'warning'
-    })
-    for (let uid of selectedIds.value) {
-      await deleteUser(uid)
-    }
-    ElMessage.success('批量删除成功')
-    selectedIds.value = []
-    getList()
-  } catch {
-    ElMessage.info('已取消')
-  }
+	// 禁止删除管理员
+	if (selectedIds.value.includes('1')) {
+		ElMessage.warning('包含管理员账号，不可删除！')
+		return
+	}
+	try {
+		await ElMessageBox.confirm('确定删除选中的数据？', '提示', {
+			type: 'warning',
+		})
+		for (let uid of selectedIds.value) {
+			await deleteUser(uid)
+		}
+		ElMessage.success('批量删除成功')
+		selectedIds.value = []
+		getList()
+	} catch {
+		ElMessage.info('已取消')
+	}
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

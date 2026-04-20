@@ -4,7 +4,7 @@
 <template>
   <div class="navbar">
     <div class="right-menu">
-      <span>欢迎，{{ userStore.userInfo.nickname }}</span>
+      <span>欢迎，{{ userStore.userInfo.name }}</span>
       <el-button @click="handleLogout">退出登录</el-button>
     </div>
   </div>

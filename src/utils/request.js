@@ -34,7 +34,7 @@ AxiosInstance.interceptors.request.use(
             data: {
               id: 1,
               username: 'admin',
-              nickname: '超级管理员',
+              name: '超级管理员',
               roles: ['admin'],
               token: 'admin-token-123456'
             },
