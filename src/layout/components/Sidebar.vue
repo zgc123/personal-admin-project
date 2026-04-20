@@ -131,6 +131,9 @@ const showMenus = computed(() => {
 .aside {
 	background: #002033;
 	height: 100vh;
+  :deep(.el-menu){
+    border-right:none;
+  }
 }
 .logo {
 	height: 60px;
