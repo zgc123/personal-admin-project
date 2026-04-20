@@ -1,0 +1,91 @@
+/*
+ * @Description: 公共css
+*/
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+  height: 100%;
+}
+
+/* 输入框统一样式 */
+input, textarea {
+  outline: none;
+  -webkit-appearance: none;
+}
+textarea {
+  resize: none;
+}
+
+/* 占位符颜色 */
+input::placeholder,
+textarea::placeholder {
+  color: #b2b2b2;
+}
+
+/* 列表重置 */
+ul, li {
+  list-style: none;
+}
+
+/* 链接重置 */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 斜体重置 */
+em, i {
+  font-style: normal;
+}
+
+/* 通用工具类 */
+.wh100 {
+  width: 100%;
+  height: 100%;
+}
+.clearfix::after {
+  content: '';
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+// 单行文本溢出隐藏
+.text-overflow {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+// 多行文字溢出隐藏
+@mixin multiple-rows-overflow($rows) {
+  display: -webkit-box;
+  -webkit-line-clamp: $rows;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+
+
+// 业务显示
+.my-content{
+  padding: 20px;
+}
+.header-box {
+	display: flex;
+  margin-bottom: 20px;
+}
+.my-table{
+  width: 100%;
+}

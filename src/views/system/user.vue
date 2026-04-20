@@ -2,7 +2,7 @@
  * @Description: 用户管理
 -->
 <template>
-	<div class="user-container">
+	<div class="user-container my-content">
 		<div class="header-box">
 			<el-button type="primary" @click="openAdd">新增用户</el-button>
 			<el-button
@@ -19,7 +19,7 @@
 			:data="userList"
 			border
       height="600"
-			style="width: 100%; margin-top: 20px"
+      class="my-table"
 			@selection-change="handleSelectionChange"
 		>
 			<el-table-column type="selection" width="55" />
@@ -46,7 +46,7 @@
 
 		<el-pagination
 			v-model:current-page="page"
-			v-model:page-size="perPage"
+			v-model:page-size="limit"
 			:page-sizes="[5, 10, 15, 20]"
 			:total="total"
 			style="margin-top: 20px; text-align: right"
@@ -107,7 +107,7 @@ const isEdit = ref(false)
 const id = ref(null)
 // 分页
 const page = ref(1)
-const perPage = ref(15)
+const limit = ref(15)
 const total = ref(0)
 // 多选删除
 const selectedIds = ref([])
@@ -121,10 +121,13 @@ const getList = async () => {
 	try {
 		const res = await getUserList({
 			_page: page.value,
-			_per_page: perPage.value,
+			_per_page: limit.value,
 		})
-		total.value = res.items
-		userList.value = res.data
+    total.value = res.items;
+		userList.value = res.data.map(item => ({
+      ...item,
+      id: String(item.id),
+    }))
 	} catch (err) {
 		console.error(err)
 	}
@@ -207,11 +210,5 @@ const handleBatchDelete = async () => {
 </script>
 
 <style scoped>
-.user-container {
-	padding: 20px;
-}
-.header-box {
-	display: flex;
-	gap: 10px;
-}
+
 </style>
