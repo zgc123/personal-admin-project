@@ -1,37 +1,9 @@
 /*
- * @Description: 动态路由
+ * @Description: 动态路由存储
  */
 import { defineStore } from 'pinia'
-import { constantRoutes } from '@/router'
+import { constantRoutes,asyncRoutes } from '@/router'
 
-export const asyncRoutes = [
-  {
-    path: '/system',
-    component: () => import('@/layout/index.vue'),
-    redirect: '/system/user',
-    meta: { title: '系统管理', icon: 'Setting' },
-    children: [
-      {
-        path: 'user',
-        name: 'User',
-        component: () => import('@/views/system/user.vue'),
-        meta: { title: '用户管理', roles: ['admin'] }
-      },
-      {
-        path: 'role',
-        name: 'Role',
-        component: () => import('@/views/system/role.vue'),
-        meta: { title: '角色管理', roles: ['admin'] }
-      },
-      {
-        path: 'menu',
-        name: 'Menu',
-        component: () => import('@/views/system/menu.vue'),
-        meta: { title: '菜单管理', roles: ['admin'] }
-      },
-    ]
-  }
-]
 
 export const useRouteStore = defineStore('route', {
   state: () => ({
@@ -41,11 +13,20 @@ export const useRouteStore = defineStore('route', {
 
   actions: {
     generateRoutes(roles) {
-      console.log("🚀 ~ generateRoutes roles:", roles)
       return new Promise(resolve => {
-        let accessedRoutes = roles.includes('admin') ? asyncRoutes : []
+        let accessedRoutes;
+        if (roles.includes('admin')) {
+          accessedRoutes = asyncRoutes
+        } else {
+          accessedRoutes = asyncRoutes.filter(route => {
+            if (!route.meta || !route.meta.roles) return true
+            return roles.some(role => route.meta.roles.includes(role))
+          })
+        }
+
         this.addRoutes = accessedRoutes
         this.routes = constantRoutes.concat(accessedRoutes)
+
         resolve(accessedRoutes)
       })
     }

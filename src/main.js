@@ -7,9 +7,6 @@ import router from './router'
 import './assets/style/global.scss'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-// 引入权限控制
-import './router/permission'
-
 const app = createApp(App)
 
 // 插入图标

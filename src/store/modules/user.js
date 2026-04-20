@@ -8,7 +8,8 @@ export const useUserStore = defineStore('user', {
   state: () => ({
     token: localStorage.getItem('token') || '',
     userInfo: {},
-    roles: null
+    roles: null,
+    refreshPermission: 0, // 菜单权限变化
   }),
   actions: {
     // 登录

@@ -102,7 +102,9 @@ import { ref, onMounted, computed, nextTick } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getRoleList, addRole, updateRole, deleteRole } from '@/api/role'
 import { getMenuList } from '@/api/menu'
+import { useUserStore } from '@/store/modules/user'
 
+const userStore = useUserStore() 
 const roleList = ref([])
 const menuList = ref([])
 const selectedIds = ref([])
@@ -262,6 +264,11 @@ const saveAssignMenu = async () => {
 		ElMessage.success('权限分配成功')
 		menuDialogVisible.value = false
 		getList()
+
+		// 如果当前登录用户就是这个角色，直接刷新侧边栏
+    if (userStore.userInfo.roles[0] === currentRole.value.code) {
+			userStore.refreshPermission = Date.now()
+		}
 	} catch {
 		ElMessage.error('保存失败')
 	}
