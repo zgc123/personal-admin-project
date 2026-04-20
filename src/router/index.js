@@ -20,7 +20,12 @@ export const constantRoutes = [
         component: () => import('@/views/home/index.vue'),
       }
     ]
-  }
+  },
+  {
+    path: '/error',
+    component: () => import('@/views/404.vue'),
+    meta: { hidden: true }
+  },
 ]
 
 const router = createRouter({

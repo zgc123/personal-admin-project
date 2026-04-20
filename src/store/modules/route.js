@@ -22,7 +22,13 @@ export const asyncRoutes = [
         name: 'Role',
         component: () => import('@/views/system/role.vue'),
         meta: { title: '角色管理', roles: ['admin'] }
-      }
+      },
+      {
+        path: 'menu',
+        name: 'Menu',
+        component: () => import('@/views/system/menu.vue'),
+        meta: { title: '菜单管理', roles: ['admin'] }
+      },
     ]
   }
 ]

@@ -1,277 +1,329 @@
 {
-	"userInfo": {
-		"id": 1,
-		"username": "admin",
-		"nickname": "超级管理员",
-		"roles": ["admin"]
-	},
-	"roles": [
-		{
-			"id": 1,
-			"name": "超级管理员",
-			"code": "admin",
-			"menuIds": [1, 2, 3, 4, 5, 6]
-		},
-		{ "id": 2, "name": "普通用户", "code": "user", "menuIds": [1, 2] }
-	],
-	"menus": [
-		{
-			"id": 1,
-			"label": "首页",
-			"path": "/",
-			"icon": "HomeFilled",
-			"parentId": 0,
-			"sort": "1"
-		},
-		{
-			"id": 2,
-			"label": "个人中心",
-			"path": "/profile",
-			"icon": "User",
-			"parentId": 0,
-			"sort": "2"
-		},
-		{
-			"id": 3,
-			"label": "系统管理",
-			"path": "",
-			"icon": "Setting",
-			"parentId": 0,
-			"sort": "3"
-		},
-		{
-			"id": 4,
-			"label": "用户管理",
-			"path": "/system/user",
-			"parentId": 3,
-			"sort": "1"
-		},
-		{
-			"id": 5,
-			"label": "角色管理",
-			"path": "/system/role",
-			"parentId": 3,
-			"sort": "2"
-		},
-		{
-			"id": 6,
-			"label": "菜单管理",
-			"path": "/system/menu",
-			"parentId": 3,
-			"sort": "3"
-		}
-	],
-	"userList": [
-		{
-			"id": 1,
-			"name": "管理员",
-			"username": "admin",
-			"password": "123456",
-			"role": "admin"
-		},
-		{
-			"id": 2,
-			"name": "张三",
-			"username": "zhangsan",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 3,
-			"name": "李四",
-			"username": "lisi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 4,
-			"name": "王五",
-			"username": "wangwu",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 5,
-			"name": "赵六",
-			"username": "zhaoliu",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 6,
-			"name": "孙七",
-			"username": "sunqi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 7,
-			"name": "周八",
-			"username": "zhouba",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 8,
-			"name": "吴九",
-			"username": "wujiu",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 9,
-			"name": "郑十",
-			"username": "zhengshi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 10,
-			"name": "冯十一",
-			"username": "fengshiyi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 11,
-			"name": "陈十二",
-			"username": "chenshier",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 12,
-			"name": "褚十三",
-			"username": "chushisan",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 13,
-			"name": "卫十四",
-			"username": "weishisi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 14,
-			"name": "蒋十五",
-			"username": "jiangshiwu",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 15,
-			"name": "沈十六",
-			"username": "shenshiliu",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 16,
-			"name": "韩十七",
-			"username": "hanshiqi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 17,
-			"name": "杨十八",
-			"username": "yangshiba",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 18,
-			"name": "朱十九",
-			"username": "zhushijiu",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 19,
-			"name": "秦二十",
-			"username": "qinershi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 20,
-			"name": "尤二一",
-			"username": "youeryi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 21,
-			"name": "许二二",
-			"username": "xuerer",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 22,
-			"name": "何二三",
-			"username": "heersan",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 23,
-			"name": "吕二四",
-			"username": "lversi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 24,
-			"name": "施二五",
-			"username": "shi'erwu",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 25,
-			"name": "张二六",
-			"username": "zhang'erliu",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 26,
-			"name": "曹二七",
-			"username": "cao'erqi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 27,
-			"name": "华二八",
-			"username": "hua'erba",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 28,
-			"name": "金二九",
-			"username": "jin'erjiu",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 29,
-			"name": "魏三十",
-			"username": "weisanshi",
-			"password": "123456",
-			"role": "user"
-		},
-		{
-			"id": 30,
-			"name": "陶三一",
-			"username": "taosanyi",
-			"password": "123456",
-			"role": "user"
-		}
-	],
-	"$schema": "./node_modules/json-server/schema.json"
+  "userInfo": {
+    "id": 1,
+    "username": "admin",
+    "nickname": "超级管理员",
+    "roles": [
+      "admin"
+    ]
+  },
+  "roles": [
+    {
+      "id": "1",
+      "name": "超级管理员",
+      "code": "admin",
+      "menuIds": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ]
+    },
+    {
+      "id": "2",
+      "name": "普通用户",
+      "code": "user",
+      "menuIds": [
+        1,
+        2
+      ]
+    }
+  ],
+  "menus": [
+    {
+      "id": "1",
+      "label": "首页",
+      "path": "/home",
+      "icon": "HomeFilled",
+      "parentId": "0",
+      "sort": 1
+    },
+    {
+      "id": "2",
+      "label": "个人中心",
+      "path": "/profile",
+      "icon": "User",
+      "parentId": "0",
+      "sort": 5,
+      "children": []
+    },
+    {
+      "id": "3",
+      "label": "系统管理",
+      "path": "/system",
+      "icon": "Setting",
+      "parentId": "0",
+      "sort": 6,
+      "children": [
+        {
+          "id": "4",
+          "label": "用户管理",
+          "path": "/system/user",
+          "parentId": "3",
+          "sort": 1,
+          "children": []
+        },
+        {
+          "id": "5",
+          "label": "角色管理",
+          "path": "/system/role",
+          "parentId": "3",
+          "sort": 2,
+          "children": []
+        },
+        {
+          "id": "6",
+          "label": "菜单管理",
+          "path": "/system/menu",
+          "parentId": "3",
+          "sort": 3,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "label": "用户管理",
+      "path": "/system/user",
+      "parentId": "3",
+      "sort": 1
+    },
+    {
+      "id": "5",
+      "label": "角色管理",
+      "path": "/system/role",
+      "parentId": "3",
+      "sort": 2
+    },
+    {
+      "id": "6",
+      "label": "菜单管理",
+      "path": "/system/menu",
+      "parentId": "3",
+      "sort": 3
+    },
+    {
+      "label": "测试菜单",
+      "path": "/erroe",
+      "icon": "",
+      "parentId": "0",
+      "sort": 3,
+      "id": "brCXmo36lU0"
+    }
+  ],
+  "userList": [
+    {
+      "id": "1",
+      "name": "管理员",
+      "username": "admin",
+      "password": "123456",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "name": "张三",
+      "username": "zhangsan",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "3",
+      "name": "李四",
+      "username": "lisi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "4",
+      "name": "王五",
+      "username": "wangwu",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "5",
+      "name": "赵六",
+      "username": "zhaoliu",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "6",
+      "name": "孙七",
+      "username": "sunqi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "7",
+      "name": "周八",
+      "username": "zhouba",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "8",
+      "name": "吴九",
+      "username": "wujiu",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "9",
+      "name": "郑十",
+      "username": "zhengshi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "10",
+      "name": "冯十一",
+      "username": "fengshiyi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "11",
+      "name": "陈十二",
+      "username": "chenshier",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "12",
+      "name": "褚十三",
+      "username": "chushisan",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "13",
+      "name": "卫十四",
+      "username": "weishisi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "14",
+      "name": "蒋十五",
+      "username": "jiangshiwu",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "15",
+      "name": "沈十六",
+      "username": "shenshiliu",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "16",
+      "name": "韩十七",
+      "username": "hanshiqi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "17",
+      "name": "杨十八",
+      "username": "yangshiba",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "18",
+      "name": "朱十九",
+      "username": "zhushijiu",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "19",
+      "name": "秦二十",
+      "username": "qinershi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "20",
+      "name": "尤二一",
+      "username": "youeryi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "21",
+      "name": "许二二",
+      "username": "xuerer",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "22",
+      "name": "何二三",
+      "username": "heersan",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "23",
+      "name": "吕二四",
+      "username": "lversi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "24",
+      "name": "施二五",
+      "username": "shi'erwu",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "25",
+      "name": "张二六",
+      "username": "zhang'erliu",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "26",
+      "name": "曹二七",
+      "username": "cao'erqi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "27",
+      "name": "华二八",
+      "username": "hua'erba",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "28",
+      "name": "金二九",
+      "username": "jin'erjiu",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "29",
+      "name": "魏三十",
+      "username": "weisanshi",
+      "password": "123456",
+      "role": "user"
+    },
+    {
+      "id": "30",
+      "name": "陶三一",
+      "username": "taosanyi",
+      "password": "123456",
+      "role": "user"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
